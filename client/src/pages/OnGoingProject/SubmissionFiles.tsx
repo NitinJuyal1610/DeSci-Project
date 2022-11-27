@@ -44,9 +44,7 @@ const SubmissionFiles = () => {
         ); // Promise<Web3Response | null>
 
         if (!res) return;
-
         const files = await res.files(); // Promise<Web3File[]>
-
         setFiles(files);
       } catch (error) {
         console.log(error);
@@ -58,6 +56,7 @@ const SubmissionFiles = () => {
     <div className="tab-content submission-files">
       <div className="inner__left">
         <span>Last Updated: 27 Nov 2022 16:26:29</span>
+
         <div className="files-container">
           {files && files.length
             ? files.map((file, index) => (
