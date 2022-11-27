@@ -5,7 +5,7 @@ import { getContractAddress } from "ethers/lib/utils";
 
 dotenv.config();
 
-const TOKEN_ADDRESS = "0x86a505136dFE85BC2905e3b3f721ae9D289D24e0";
+const TOKEN_ADDRESS = "0x29c19d598fB83Be67ce407C765158C072FDA6C6C";
 
 async function main() {
     console.log("Deploying contracts. Please be patient.");
