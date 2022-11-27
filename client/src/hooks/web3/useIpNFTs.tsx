@@ -44,6 +44,7 @@ const useIpNFTs = () => {
           const data = await fetch(`https://${uri}.ipfs.dweb.link/`).then(
             (res) => res.json()
           );
+
           return {
             ...data,
             owner,
