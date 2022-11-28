@@ -34,6 +34,7 @@ const SubmissionFiles = () => {
   useEffect(() => {
     if (!client || !proposalFound) return;
 
+    console.log(proposalFound);
     setFiles([]);
 
     (async () => {
@@ -43,7 +44,7 @@ const SubmissionFiles = () => {
             .milestoneResearchCid
         ); // Promise<Web3Response | null>
 
-        if (!res) return;
+        if (!res?.ok) return;
         const files = await res.files(); // Promise<Web3File[]>
         setFiles(files);
       } catch (error) {
@@ -61,7 +62,7 @@ const SubmissionFiles = () => {
           {files && files.length
             ? files.map((file, index) => (
                 <ExternalLink
-                  to={`https://dweb.link/ipfs/${file.cid}`}
+                  to={`https://${file.cid}.ipfs.w3s.link/`}
                   key={index}
                 >
                   {file.name}
@@ -87,7 +88,7 @@ const SubmissionFiles = () => {
         {(proposalFound?.milestoneIndex.toNumber() || 0) >
           selectedMilestone && (
           <Button
-            externalLink={`https://dweb.link/ipfs/${proposalFound?.proposalMilestones[selectedMilestone].milestoneResearchCid}`}
+            externalLink={`https://${proposalFound?.proposalMilestones[selectedMilestone].milestoneResearchCid}.ipfs.w3s.link/`}
             variant="tertiary"
           >
             Link to IPFS CID (Zip File)
@@ -97,7 +98,7 @@ const SubmissionFiles = () => {
         <Button
           externalLink={
             files && files.length
-              ? `https://dweb.link/ipfs/${files[0].cid}`
+              ? `https://${files[0].cid}.ipfs.w3s.link/`
               : "/"
           }
           variant="tertiary"

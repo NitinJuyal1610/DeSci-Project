@@ -5,7 +5,7 @@ import useProposals from "../../hooks/web3/useProposals";
 import useWeb3Storage from "../../hooks/web3/useWeb3Storage";
 
 const ProposalOverview = () => {
-  const [file, setFile] = useState<Web3File>();
+  const [file, setFile] = useState("");
 
   const { proposals } = useProposals();
 
@@ -24,13 +24,16 @@ const ProposalOverview = () => {
 
     (async () => {
       try {
-        const res = await client.get(proposalFound.researchCid); // Promise<Web3Response | null>
+        // const res = await client.get(proposalFound.researchCid); // Promise<Web3Response | null>
+        // console.log(proposalFound.researchCid);
+        // if (!res) return;
+        const file = await fetch(
+          `https://${proposalFound.researchCid}.ipfs.w3s.link/`
+        );
+        console.log(file, "is file");
+        // const files = await res.files(); // Promise<Web3File[]>
 
-        if (!res) return;
-
-        const files = await res.files(); // Promise<Web3File[]>
-
-        setFile(files[0]);
+        setFile(file.url);
       } catch (error) {
         console.log(error);
       }
@@ -39,12 +42,7 @@ const ProposalOverview = () => {
 
   return (
     <div className="container tab-content proposal-overview">
-      <object
-        width="100%"
-        height="900"
-        data={`https://${file?.cid}.ipfs.dweb.link/`}
-        type="application/pdf"
-      >
+      <object width="100%" height="900" data={file} type="application/pdf">
         {" "}
       </object>
     </div>
